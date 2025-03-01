@@ -1,86 +1,115 @@
 public class PizzaOrder {
-  // Make the variables private
-  private String orderID;
-  private String pizzaIngredients;
-  private double orderTotal;
-  private String sides;
-  private String drinks;
+    private String orderID;
+    private String pizzaIngredients;
+    private double orderTotal;
+    private String sides;
+    private String drinks;
+    public final String DEF_ORDER_ID = "DEF-SOH-099";
+    public final String DEF_PIZZA_INGREDIENTS = "Mozzarella Cheese";
+    public final double DEF_ORDER_TOTAL = 15.0;
 
-  // Final variables
-  public final String DEF_ORDER_ID = "DEF-SOH-099";
-  public final String DEF_PIZZA_INGREDIENTS = "Mozzarella Cheese";
-  public final double DEF_ORDER_TOTAL = 15.00;
+    public PizzaOrder() {
+        this.orderID = "DEF-SOH-099";
+        this.pizzaIngredients = "Mozzarella Cheese";
+        this.orderTotal = 15.0;
+        this.sides = "";
+        this.drinks = "";
+    }
 
-  // Default constructor
-  public PizzaOrder() {
-      this.orderID = DEF_ORDER_ID;
-      this.pizzaIngredients = DEF_PIZZA_INGREDIENTS;
-      this.orderTotal = DEF_ORDER_TOTAL;
-      this.sides = "";
-      this.drinks = "";
-  }
+    public PizzaOrder(String orderID, String pizzaIngredients, double orderTotal) {
+        this.orderID = orderID;
+        this.pizzaIngredients = pizzaIngredients;
+        this.orderTotal = orderTotal;
+        this.sides = "";
+        this.drinks = "";
+    }
 
-  // Another constructor
-  public PizzaOrder(String orderID, String pizzaIngredients, double orderTotal) {
-      this.orderID = orderID;
-      this.pizzaIngredients = pizzaIngredients;
-      this.orderTotal = orderTotal;
-      this.sides = "";
-      this.drinks = "";
-  }
+    public String getOrderID() {
+        return this.orderID;
+    }
 
-  // Getters and Setters for private variables
-  public String getOrderID() {
-      return orderID;
-  }
+    public void setOrderID(String orderID) {
+        this.orderID = orderID;
+    }
 
-  public void setOrderID(String orderID) {
-      this.orderID = orderID;
-  }
+    public String getPizzaIngredients() {
+        return this.pizzaIngredients;
+    }
 
-  public String getPizzaIngredients() {
-      return pizzaIngredients;
-  }
+    public void setPizzaIngredients(String pizzaIngredients) {
+        this.pizzaIngredients = pizzaIngredients;
+    }
 
-  public void setPizzaIngredients(String pizzaIngredients) {
-      this.pizzaIngredients = pizzaIngredients;
-  }
+    public double getOrderTotal() {
+        return this.orderTotal;
+    }
 
-  public double getOrderTotal() {
-      return orderTotal;
-  }
+    public void setOrderTotal(double orderTotal) {
+        this.orderTotal = orderTotal;
+    }
 
-  public void setOrderTotal(double orderTotal) {
-      this.orderTotal = orderTotal;
-  }
+    public String getSides() {
+        return this.sides;
+    }
 
-  public String getSides() {
-      return sides;
-  }
+    public void setSides(String sides) {
+        this.sides = sides;
+    }
 
-  public void setSides(String sides) {
-      this.sides = sides;
-  }
+    public String getDrinks() {
+        return this.drinks;
+    }
 
-  public String getDrinks() {
-      return drinks;
-  }
+    public void setDrinks(String drinks) {
+        this.drinks = drinks;
+    }
 
-  public void setDrinks(String drinks) {
-      this.drinks = drinks;
-  }
+    private void printReceipt() {
+        System.out.println("Order ID: " + this.orderID);
+        System.out.println("Pizza Ingredients: " + this.pizzaIngredients);
+        System.out.println("Order Total: $" + this.orderTotal);
+        System.out.println("Sides: " + this.sides);
+        System.out.println("Drinks: " + this.drinks);
+    }
 
-  // Private method to print receipt
-  private void printReceipt() {
-      System.out.println("Order ID: " + orderID);
-      System.out.println("Pizza Ingredients: " + pizzaIngredients);
-      System.out.println("Order Total: $" + orderTotal);
-      System.out.println("Sides: " + sides);
-      System.out.println("Drinks: " + drinks);
-  }
+    public void displayReceipt() {
+        this.printReceipt();
+    }
 
-  // Public method to call the private printReceipt method
-  public void displayReceipt() {
-      printReceipt();
-  }
+    public void processCardPayment(String cardNumber, String expiryDate, int cvv) {
+        int cardLength = cardNumber.length();
+        if (cardLength == 14) {
+            System.out.println("Card accepted");
+        } else {
+            System.out.println("Invalid card");
+        }
+
+        int firstCardDigit = Integer.parseInt(cardNumber.substring(0, 1));
+
+        String blacklistedNumber = "12345678901234";
+        if (cardNumber.equals(blacklistedNumber)) {
+            System.out.println("Card is blacklisted. Please use another card");
+        }
+
+        int lastFourDigits = Integer.parseInt(cardNumber.substring(cardLength - 4));
+
+        StringBuilder cardNumberToDisplayBuilder = new StringBuilder(cardNumber);
+        for (int i = 1; i < cardLength - 4; i++) {
+            cardNumberToDisplayBuilder.setCharAt(i, '*');
+        }
+        String cardNumberToDisplay = cardNumberToDisplayBuilder.toString();
+
+        System.out.println("First card digit: " + firstCardDigit);
+        System.out.println("Last four digits: " + lastFourDigits);
+        System.out.println("Card number to display: " + cardNumberToDisplay);
+    }
+
+    public void specialOfTheDay(String pizzaOfTheDay, String sideOfTheDay, String specialPrice) {
+        StringBuilder specialDetails = new StringBuilder();
+        specialDetails.append("Pizza of the day: ").append(pizzaOfTheDay).append("\n");
+        specialDetails.append("Side of the day: ").append(sideOfTheDay).append("\n");
+        specialDetails.append("Special price: ").append(specialPrice).append("\n");
+
+        System.out.println(specialDetails.toString());
+    }
 }
